@@ -4,14 +4,21 @@ namespace Sci\Assert;
 
 class Assert
 {
+    /** @var mixed */
     private $value;
 
+    /** @var bool */
     private $plural;
 
-    private function __construct($value, $all = false)
+    /** @var bool */
+    private $alwaysValid;
+
+    private function __construct($value)
     {
-        $this->value  = $value;
-        $this->plural = $all;
+        $this->value = $value;
+
+        $this->plural      = false;
+        $this->alwaysValid = false;
     }
 
     /**
@@ -24,50 +31,103 @@ class Assert
         return new self($value);
     }
 
-    public static function thatAll($values)
+    public function all()
     {
-        return new self($values, true);
-    }
+        $this->isTraversable();
 
-    public function isInstanceOf($className)
-    {
+        $this->plural = true;
+
         return $this;
     }
 
-    public function isArrayIsh()
+    public function nullOr()
     {
-        if (!is_array($this->value) && !$this->value instanceof \Traversable) {
-            throw $this->createException('Failed assertion that %s is arrayish');
+        if ($this->value === null) {
+            $this->alwaysValid = true;
         }
+
+        return $this;
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return Assert
+     */
+    public function isInstanceOf($className)
+    {
+        $this->doCheck(function ($value) use ($className) {
+            if (!$value instanceof $className) {
+                throw $this->createException('Failed assertion that %s is an instance of %s', $value, $className);
+            }
+        });
+
+        return $this;
+
+    }
+
+    public function isTraversable()
+    {
+        $this->doCheck(function ($value) {
+            if (!is_array($value) && !$value instanceof \Traversable) {
+                throw $this->createException('Failed assertion that %s is traversable', $value);
+            }
+        });
 
         return $this;
     }
 
     public function equal($other)
     {
-        if ($this->value != $other) {
-            throw $this->createException('Failed assertion that %s is same as %s', $this->value, $other);
-        }
+        $this->doCheck(function ($value) use ($other) {
+            if ($value != $other) {
+                throw $this->createException('Failed assertion that %s is same as %s', $value, $other);
+            }
+        });
 
         return $this;
     }
 
-    public function same($other)
+    public function strictEqual($other)
     {
-        if ($this->value !== $other) {
-            throw $this->createException('Failed assertion that %s is same as %s', $this->value, $other);
-        }
+        $this->doCheck(function ($value) use ($other) {
+            if ($value !== $other) {
+                throw $this->createException('Failed assertion that %s is same as %s', $value, $other);
+            }
+        });
+
+        return $this;
+    }
+
+    public function lessThan($other)
+    {
+        $this->doCheck(function ($value) use ($other) {
+            if ($value < $other) {
+                throw $this->createException('Failed assertion that %s is less than %s', $value, $other);
+            }
+        });
 
         return $this;
     }
 
     public function between($min, $max)
     {
-        $values = $this->plural ? $this->value : [$this->value];
-
-        foreach ($values as $value) {
+        $this->doCheck(function ($value) use ($min, $max) {
             if ($value < $min || $value > $max) {
-                throw $this->createException('Failed assertion that %s is between %s and %s', $this->value, $min, $max);
+                throw $this->createException('Failed assertion that %s is between %s and %s', $value, $min, $max);
+            }
+        });
+
+        return $this;
+    }
+
+    protected function doCheck(callable $check)
+    {
+        if (!$this->alwaysValid) {
+            $values = $this->plural ? $this->value : [$this->value];
+
+            foreach ($values as $value) {
+                call_user_func($check, $value);
             }
         }
 
@@ -82,15 +142,6 @@ class Assert
         $message = call_user_func_array('sprintf', $args);
 
         return new \Exception($message);
-    }
-
-    public function all()
-    {
-        $this->isArrayIsh();
-
-        $this->plural = true;
-
-        return $this;
     }
 
     /**
