@@ -81,7 +81,7 @@ class Assert
 
         $message = call_user_func_array('sprintf', $args);
 
-        return new Exception($message);
+        return new \Exception($message);
     }
 
     public function all()
@@ -93,6 +93,11 @@ class Assert
         return $this;
     }
 
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
     private function stringify($value)
     {
         if (is_bool($value)) {
