@@ -10,10 +10,15 @@ class Assert
 
     private function __construct($value, $all = false)
     {
-        $this->value = $value;
+        $this->value  = $value;
         $this->plural = $all;
     }
 
+    /**
+     * @param mixed $value
+     *
+     * @return Assert
+     */
     public static function that($value)
     {
         return new self($value);
