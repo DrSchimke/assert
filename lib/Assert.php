@@ -13,6 +13,9 @@ class Assert
     /** @var bool */
     private $alwaysValid;
 
+    /**
+     * @param mixed $value
+     */
     private function __construct($value)
     {
         $this->value = $value;
