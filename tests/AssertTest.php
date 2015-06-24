@@ -117,6 +117,36 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         Assert::that($value)->between($min, $max);
     }
 
+    /**
+     * @test
+     */
+    public function isInstance()
+    {
+        Assert::that(new \DateTime())->isInstanceOf('\\DateTime');
+    }
+
+    public function isInstanceOfFailsProvider()
+    {
+        return [
+            [new \DateTime(), '\\Iterator'],
+            [null, '\\DateTime'],
+            ['2014-01-01', '\\DateTime'],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \Exception
+     * @dataProvider isInstanceOfFailsProvider
+     *
+     * @param mixed  $value
+     * @param string $className
+     */
+    public function isInstanceOfFails($value, $className)
+    {
+        Assert::that($value)->isInstanceOf($className);
+    }
+
     public function allBetweenProvider()
     {
         return [
@@ -160,5 +190,23 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function allBetweenFails($values, $min, $max)
     {
         Assert::that($values)->all()->between($min, $max);
+    }
+
+    /**
+     * @test
+     */
+    public function nullOrEquals()
+    {
+        Assert::that(null)->nullOr()->equal(1);
+        Assert::that(1)->nullOr()->equal(1);
+    }
+
+    /**
+     * @test
+     * @expectedException \Exception
+     */
+    public function nullOrEqualsFails()
+    {
+        Assert::that(2)->nullOr()->equal(1);
     }
 }
