@@ -6,11 +6,6 @@ use Schimke\Assert\Assert;
 
 class AssertTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function test()
-    {
-
-    }
     public function equalProvider()
     {
         return [

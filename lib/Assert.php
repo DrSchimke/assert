@@ -144,7 +144,7 @@ class Assert
 
         $message = call_user_func_array('sprintf', $args);
 
-        return new \Exception($message);
+        return new InvalidArgumentException($message);
     }
 
     /**
