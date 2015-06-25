@@ -1,5 +1,5 @@
 {
-    "name": "schimke/assert",
+    "name": "sci/assert",
     "description": "Extensible lightweight assertion library.",
     "type": "library",
     "require-dev": {
