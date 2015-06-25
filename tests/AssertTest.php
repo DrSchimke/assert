@@ -37,6 +37,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function equal($value1, $value2)
     {
         Assert::that($value1)->equal($value2);
+
+        $this->assertTrue(true);
     }
 
     public function equalFailsProvider()
@@ -67,6 +69,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function equalFails($value1, $value2)
     {
         Assert::that($value1)->equal($value2);
+
+        $this->assertTrue(true);
     }
 
     public function betweenProvider()
@@ -92,6 +96,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function between($value, $min, $max)
     {
         Assert::that($value)->between($min, $max);
+
+        $this->assertTrue(true);
     }
 
     public function betweenFailsProvider()
@@ -123,6 +129,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function isInstance()
     {
         Assert::that(new \DateTime())->isInstanceOf('\\DateTime');
+
+        $this->assertTrue(true);
     }
 
     public function isInstanceOfFailsProvider()
@@ -147,6 +155,37 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         Assert::that($value)->isInstanceOf($className);
     }
 
+    public function isTraversableProvider()
+    {
+        return [
+           [[]],
+           [[1, 2]],
+           [new \ArrayIterator()],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider isTraversableProvider
+     */
+    public function isTraversable($value)
+    {
+        Assert::that($value)->isTraversable();
+
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     * @expectedException \Exception
+     */
+    public function isTraversableFails()
+    {
+        Assert::that(0)->isTraversable();
+
+        $this->assertTrue(true);
+    }
+
     public function allBetweenProvider()
     {
         return [
@@ -166,6 +205,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function allBetween($values, $min, $max)
     {
         Assert::that($values)->all()->between($min, $max);
+
+        $this->assertTrue(true);
     }
 
     public function allBetweenFailsProvider()
@@ -199,6 +240,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     {
         Assert::that(null)->nullOr()->equal(1);
         Assert::that(1)->nullOr()->equal(1);
+
+        $this->assertTrue(true);
     }
 
     /**
@@ -208,5 +251,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function nullOrEqualsFails()
     {
         Assert::that(2)->nullOr()->equal(1);
+
+        $this->assertTrue(true);
     }
 }
