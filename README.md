@@ -18,7 +18,7 @@ public function foobar($values)
     foreach ($values as $value) {
         // ...
     }
-}som
+}
 
 $a = array(1, 2, 3);
 $b = new \ArrayIterator($a);
