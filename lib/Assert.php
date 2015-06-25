@@ -1,6 +1,6 @@
 <?php
 
-namespace Sci\Assert;
+namespace Schimke\Assert;
 
 class Assert
 {
