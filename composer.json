@@ -2,6 +2,9 @@
     "name": "sci/assert",
     "description": "Extensible lightweight assertion library.",
     "type": "library",
+    "require": {
+        "php": ">=5.4.0"
+    },
     "require-dev": {
         "phpunit/phpunit": "^4.6"
     },
