@@ -1,8 +1,8 @@
 <?php
 
-namespace Schimke\Tests\Assert;
+namespace Sci\Tests\Assert;
 
-use Schimke\Assert\Assert;
+use Sci\Assert\Assert;
 
 class AssertTest extends \PHPUnit_Framework_TestCase
 {
@@ -60,8 +60,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Exception
      * @dataProvider equalFailsProvider
+     * @expectedException \InvalidArgumentException
      *
      * @param mixed $value1
      * @param mixed $value2
@@ -111,8 +111,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Exception
      * @dataProvider betweenFailsProvider
+     * @expectedException \InvalidArgumentException
      *
      * @param mixed $value
      * @param mixed $min
@@ -144,8 +144,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Exception
      * @dataProvider isInstanceOfFailsProvider
+     * @expectedException \InvalidArgumentException
      *
      * @param mixed  $value
      * @param string $className
@@ -177,7 +177,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Exception
+     * @expectedException \InvalidArgumentException
      */
     public function isTraversableFails()
     {
@@ -221,8 +221,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Exception
      * @dataProvider allBetweenFailsProvider
+     * @expectedException \InvalidArgumentException
      *
      * @param array $values
      * @param mixed $min
@@ -253,5 +253,224 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         Assert::that(2)->nullOr()->equal(1);
 
         $this->assertTrue(true);
+    }
+
+    public function orderProvider()
+    {
+        return [
+            [1, 2],
+            ['aaa', 'aaab'],
+            ['aaa', 'aaaa'],
+            [new \DateTime('today'), new \DateTime('tomorrow')],
+        ];
+    }
+
+    public function semiOrderProvider()
+    {
+        return [
+            [1, 2],
+            [1, 1],
+            ['aaa', 'aaab'],
+            ['aaa', 'aaaa'],
+            ['aaa', 'aaa'],
+            [new \DateTime('today'), new \DateTime('tomorrow')],
+            [new \DateTime('today 12:00:00'), new \DateTime('today 12:00:00')],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider orderProvider
+     *
+     * @param $a
+     * @param $b
+     */
+    public function lt($a, $b)
+    {
+        Assert::that($a)->lt($b);
+    }
+
+    /**
+     * @test
+     * @dataProvider orderProvider
+     *
+     * @param $a
+     * @param $b
+     */
+    public function gt($a, $b)
+    {
+        Assert::that($b)->gt($a);
+    }
+
+    /**
+     * @test
+     * @dataProvider semiOrderProvider
+     *
+     * @param $a
+     * @param $b
+     */
+    public function lte($a, $b)
+    {
+        Assert::that($a)->lte($b);
+    }
+
+    /**
+     * @test
+     * @dataProvider semiOrderProvider
+     *
+     * @param $a
+     * @param $b
+     */
+    public function gte($a, $b)
+    {
+        Assert::that($b)->gte($a);
+    }
+
+    /**
+     * @test
+     * @dataProvider semiOrderProvider
+     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $a
+     * @param mixed $b
+     */
+    public function ltFails($a, $b)
+    {
+        Assert::that($b)->lt($a);
+    }
+
+    /**
+     * @test
+     * @dataProvider semiOrderProvider
+     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $a
+     * @param mixed $b
+     */
+    public function gtFails($a, $b)
+    {
+        Assert::that($a)->gt($b);
+    }
+
+    /**
+     * @test
+     * @dataProvider orderProvider
+     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $a
+     * @param mixed $b
+     */
+    public function lteFails($a, $b)
+    {
+        Assert::that($b)->lte($a);
+    }
+
+    /**
+     * @test
+     * @dataProvider orderProvider
+     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $a
+     * @param mixed $b
+     */
+    public function gteFails($a, $b)
+    {
+        Assert::that($a)->gte($b);
+    }
+
+    /**
+     * @test
+     */
+    public function minLength()
+    {
+        $string = str_repeat('a', 200);
+
+        Assert::that($string)->hasMinLength(10);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function minLengthFails()
+    {
+        $string = str_repeat('a', 200);
+
+        Assert::that($string)->hasMinLength(201);
+    }
+
+    /**
+     * @test
+     */
+    public function isString()
+    {
+        Assert::that('äöüÄÖÜß')->isString();
+    }
+
+    public function isStringFailsProvider()
+    {
+        return [
+            [null],
+            [1],
+            [new \stdClass()],
+            [STDIN]
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider isStringFailsProvider
+     * @expectedException \InvalidArgumentException
+     */
+    public function isStringFails($noString)
+    {
+        Assert::that($noString)->isString();
+    }
+
+    public function strictEqualsProvider()
+    {
+        $object = new \stdClass();
+
+        return [
+            [1, 1],
+            [null, null],
+            [$object, $object],
+            [[1, 2], [1, 2]]
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider strictEqualsProvider
+     *
+     * @param $a
+     * @param $b
+     */
+    public function strictEquals($a, $b)
+    {
+        Assert::that($a)->strictEqual($b);
+    }
+
+    public function strictEqualsFailsProvider()
+    {
+        return [
+            [1, 2],
+            [null, 2],
+            [new \stdClass(), new \stdClass()],
+            [[1, 2], [2, 1]]
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider strictEqualsFailsProvider
+     * @expectedException \InvalidArgumentException
+     *
+     * @param $a
+     * @param $b
+     */
+    public function strictEqualsFails($a, $b)
+    {
+        Assert::that($a)->strictEqual($b);
     }
 }

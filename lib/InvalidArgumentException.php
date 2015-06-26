@@ -1,6 +1,6 @@
 <?php
 
-namespace Schimke\Assert;
+namespace Sci\Assert;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {

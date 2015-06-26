@@ -6,7 +6,7 @@
         "phpunit/phpunit": "^4.6"
     },
     "autoload": {
-        "psr-4": { "Schimke\\Assert\\": "lib/" }
+        "psr-4": { "Sci\\Assert\\": "lib/" }
     },
     "config": {
         "bin-dir": "bin"

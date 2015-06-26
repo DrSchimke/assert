@@ -4,9 +4,15 @@
 
 PHP library heavily inspired by [beberlei/assert](https://github.com/beberlei/assert).
 
-The purpose is a lightweight php library mainly for validating method parameters. The library's API is fluent DSL like.
+The purpose is a lightweight php library mainly for validating method parameters. The library's API is fluent [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) like.
 
 ## Installation
+
+Using [composer](https://getcomposer.org/download/):
+
+```
+composer require sci/assert dev-master
+```
 
 ## Motivation
 
@@ -47,7 +53,7 @@ public function foobar($values)
 The solution may be this:
 
 ```php
-use Schimke\Assert\Assert;
+use Sci\Assert\Assert;
 
 public function foobar($values)
 {
@@ -60,7 +66,7 @@ public function foobar($values)
 ## Examples
 
 ```php
-use Schimke\Assert\Assert;
+use Sci\Assert\Assert;
 
 // be it a string, matching a regular expression
 Assert::that($value)->isString()->machesRegExp('/[A-Z][a-z+]/');
@@ -97,7 +103,7 @@ While beberlei's fluent API is based function-based (```\Assert\that()```), the 
 ```
 
 ```php
-use Schimke\Assert\Assert;
+use Sci\Assert\Assert;
 
 Assert::that(1)->isInteger()->greaterThanOrEual(-10)->lessThanOrEqual(10);
 Assert::that(1)->isInteger()->gte(-10)->lte(10);

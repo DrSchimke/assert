@@ -1,6 +1,6 @@
 <?php
 
-namespace Schimke\Assert;
+namespace Sci\Assert;
 
 class Assert
 {
@@ -69,6 +69,17 @@ class Assert
 
     }
 
+    public function isString()
+    {
+        $this->doCheck(function ($value) {
+            if (!is_string($value)) {
+                throw $this->createException('Failed assertion that %s is a string', $value);
+            }
+        });
+
+        return $this;
+    }
+
     public function isTraversable()
     {
         $this->doCheck(function ($value) {
@@ -105,7 +116,7 @@ class Assert
     public function lessThan($other)
     {
         $this->doCheck(function ($value) use ($other) {
-            if ($value < $other) {
+            if ($value >= $other) {
                 throw $this->createException('Failed assertion that %s is less than %s', $value, $other);
             }
         });
@@ -113,11 +124,77 @@ class Assert
         return $this;
     }
 
+    public function greaterThan($other)
+    {
+        $this->doCheck(function ($value) use ($other) {
+            if ($value <= $other) {
+                throw $this->createException('Failed assertion that %s is greater than %s', $value, $other);
+            }
+        });
+
+        return $this;
+    }
+
+    public function lessThanOrEqual($other)
+    {
+        $this->doCheck(function ($value) use ($other) {
+            if ($value > $other) {
+                throw $this->createException('Failed assertion that %s is less than %s', $value, $other);
+            }
+        });
+
+        return $this;
+    }
+
+    public function greaterThanOrEqual($other)
+    {
+        $this->doCheck(function ($value) use ($other) {
+            if ($value < $other) {
+                throw $this->createException('Failed assertion that %s is greater than %s', $value, $other);
+            }
+        });
+
+        return $this;
+    }
+
+    public function lt($other)
+    {
+        return $this->lessThan($other);
+    }
+
+    public function lte($other)
+    {
+        return $this->lessThanOrEqual($other);
+    }
+
+    public function gt($other)
+    {
+        return $this->greaterThan($other);
+    }
+
+    public function gte($other)
+    {
+        return $this->greaterThanOrEqual($other);
+    }
+
     public function between($min, $max)
     {
         $this->doCheck(function ($value) use ($min, $max) {
             if ($value < $min || $value > $max) {
                 throw $this->createException('Failed assertion that %s is between %s and %s', $value, $min, $max);
+            }
+        });
+
+        return $this;
+    }
+
+    public function hasMinLength($minLength)
+    {
+        $this->isString();
+
+        $this->doCheck(function ($value) use ($minLength) {
+            if (mb_strlen($value) < $minLength) {
+                throw $this->createException('Failed assertion that %s has at least %s characters', $value, $minLength);
             }
         });
 
@@ -173,7 +250,7 @@ class Assert
         }
 
         if (is_object($value)) {
-            return get_class($value);
+            return sprintf('%s [%s]', get_class($value), spl_object_hash($value));
         }
 
         if (is_resource($value)) {
