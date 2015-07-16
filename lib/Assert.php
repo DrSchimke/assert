@@ -16,7 +16,7 @@ class Assert
     /**
      * @param mixed $value
      */
-    private function __construct($value)
+    final private function __construct($value)
     {
         $this->value = $value;
 
@@ -29,7 +29,7 @@ class Assert
      *
      * @return Assert
      */
-    public static function that($value)
+    final public static function that($value)
     {
         return new self($value);
     }
