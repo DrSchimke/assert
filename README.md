@@ -96,7 +96,7 @@ Assert::that($dates)->nullOr()->isInstanceOf('\DateTime');
 
 ## Differences
 
-While beberlei's fluent API is based function-based (```\Assert\that()```), the API of sci/assert uses a static method (```Assert::that()```). Although looking like an unimportant detail, the later solution is easier to extend by subclassing.
+While beberlei's fluent API is function-based (```\Assert\that()```), the API of sci/assert uses a static method (```Assert::that()```). Although looking like an unimportant detail, the later solution is easier to extend by subclassing.
 
 ```php
 \Assert\that(1)->integer()->min(-10)->max(10);
