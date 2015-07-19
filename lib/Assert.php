@@ -20,7 +20,7 @@ class Assert
     {
         $this->value = $value;
 
-        $this->plural      = false;
+        $this->plural = false;
         $this->alwaysValid = false;
     }
 
@@ -66,7 +66,6 @@ class Assert
         });
 
         return $this;
-
     }
 
     public function isString()
@@ -236,10 +235,10 @@ class Assert
         }
 
         if (is_scalar($value)) {
-            $val = (string)$value;
+            $val = (string) $value;
 
             if (strlen($val) > 100) {
-                $val = substr($val, 0, 97) . '...';
+                $val = substr($val, 0, 97).'...';
             }
 
             return $val;
@@ -257,7 +256,7 @@ class Assert
             return '<RESOURCE>';
         }
 
-        if ($value === NULL) {
+        if (is_null($value)) {
             return '<NULL>';
         }
 

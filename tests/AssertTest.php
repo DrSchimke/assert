@@ -23,7 +23,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             [STDIN, STDIN],
             [true, true],
             [false, false],
-            [null, null]
+            [null, null],
         ];
     }
 
@@ -54,7 +54,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             [STDIN, STDERR],
             [STDOUT, STDERR],
             [true, false],
-            [null, 'one']
+            [null, 'one'],
         ];
     }
 
@@ -81,7 +81,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             ['foo', 'bar', 'foobar'],
             ['foobar', 'foo', 'foobaz'],
             [1, 1, 1],
-            [new \DateTime('2015-01-01'), new \DateTime('2014-12-31 23:59:59'), new \DateTime('2015-01-01 00:00:01')]
+            [new \DateTime('2015-01-01'), new \DateTime('2014-12-31 23:59:59'), new \DateTime('2015-01-01 00:00:01')],
         ];
     }
 
@@ -105,7 +105,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         return [
             [1, 2, 3],
             ['foo', 'bar', 'baz'],
-            [new \DateTime('2015-01-02'), new \DateTime('2014-12-31'), new \DateTime('2015-01-01')]
+            [new \DateTime('2015-01-02'), new \DateTime('2014-12-31'), new \DateTime('2015-01-01')],
         ];
     }
 
@@ -413,7 +413,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             [null],
             [1],
             [new \stdClass()],
-            [STDIN]
+            [STDIN],
         ];
     }
 
@@ -435,7 +435,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             [1, 1],
             [null, null],
             [$object, $object],
-            [[1, 2], [1, 2]]
+            [[1, 2], [1, 2]],
         ];
     }
 
@@ -457,7 +457,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
             [1, 2],
             [null, 2],
             [new \stdClass(), new \stdClass()],
-            [[1, 2], [2, 1]]
+            [[1, 2], [2, 1]],
         ];
     }
 
