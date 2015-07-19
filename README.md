@@ -1,6 +1,8 @@
 # Extensible assertion library
 
 [![Build Status](https://secure.travis-ci.org/DrSchimke/assert.png)](http://travis-ci.org/DrSchimke/assert)
+[![Build Status](https://styleci.io/repos/36877074/shield)](https://styleci.io/repos/36877074)
+
 
 PHP library heavily inspired by [beberlei/assert](https://github.com/beberlei/assert).
 
