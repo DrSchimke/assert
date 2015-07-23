@@ -61,7 +61,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($className) {
             if (!$value instanceof $className) {
-                throw $this->createException('Failed assertion that %s is an instance of %s', $value, $className);
+                $this->throwException('Failed assertion that %s is an instance of %s', $value, $className);
             }
         });
 
@@ -72,7 +72,7 @@ class Assert
     {
         $this->doCheck(function ($value) {
             if (!is_string($value)) {
-                throw $this->createException('Failed assertion that %s is a string', $value);
+                $this->throwException('Failed assertion that %s is a string', $value);
             }
         });
 
@@ -83,7 +83,7 @@ class Assert
     {
         $this->doCheck(function ($value) {
             if (!is_array($value) && !$value instanceof \Traversable) {
-                throw $this->createException('Failed assertion that %s is traversable', $value);
+                $this->throwException('Failed assertion that %s is traversable', $value);
             }
         });
 
@@ -94,7 +94,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($other) {
             if ($value != $other) {
-                throw $this->createException('Failed assertion that %s is same as %s', $value, $other);
+                $this->throwException('Failed assertion that %s is same as %s', $value, $other);
             }
         });
 
@@ -105,7 +105,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($other) {
             if ($value !== $other) {
-                throw $this->createException('Failed assertion that %s is same as %s', $value, $other);
+                $this->throwException('Failed assertion that %s is same as %s', $value, $other);
             }
         });
 
@@ -116,7 +116,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($other) {
             if ($value >= $other) {
-                throw $this->createException('Failed assertion that %s is less than %s', $value, $other);
+                $this->throwException('Failed assertion that %s is less than %s', $value, $other);
             }
         });
 
@@ -127,7 +127,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($other) {
             if ($value <= $other) {
-                throw $this->createException('Failed assertion that %s is greater than %s', $value, $other);
+                $this->throwException('Failed assertion that %s is greater than %s', $value, $other);
             }
         });
 
@@ -138,7 +138,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($other) {
             if ($value > $other) {
-                throw $this->createException('Failed assertion that %s is less than %s', $value, $other);
+                $this->throwException('Failed assertion that %s is less than %s', $value, $other);
             }
         });
 
@@ -149,7 +149,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($other) {
             if ($value < $other) {
-                throw $this->createException('Failed assertion that %s is greater than %s', $value, $other);
+                $this->throwException('Failed assertion that %s is greater than %s', $value, $other);
             }
         });
 
@@ -180,7 +180,7 @@ class Assert
     {
         $this->doCheck(function ($value) use ($min, $max) {
             if ($value < $min || $value > $max) {
-                throw $this->createException('Failed assertion that %s is between %s and %s', $value, $min, $max);
+                $this->throwException('Failed assertion that %s is between %s and %s', $value, $min, $max);
             }
         });
 
@@ -193,7 +193,7 @@ class Assert
 
         $this->doCheck(function ($value) use ($minLength) {
             if (mb_strlen($value) < $minLength) {
-                throw $this->createException('Failed assertion that %s has at least %s characters', $value, $minLength);
+                $this->throwException('Failed assertion that %s has at least %s characters', $value, $minLength);
             }
         });
 
@@ -213,14 +213,17 @@ class Assert
         return $this;
     }
 
-    protected function createException()
+    /**
+     * @throws InvalidArgumentException
+     */
+    protected function throwException()
     {
         $args = func_get_args();
         $args = array_map([$this, 'stringify'], $args);
 
         $message = call_user_func_array('sprintf', $args);
 
-        return new InvalidArgumentException($message);
+        throw new InvalidArgumentException($message);
     }
 
     /**
