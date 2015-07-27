@@ -110,3 +110,7 @@ use Sci\Assert\Assert;
 Assert::that(1)->isInteger()->greaterThanOrEual(-10)->lessThanOrEqual(10);
 Assert::that(1)->isInteger()->gte(-10)->lte(10);
 ```
+
+## License
+
+All contents of this package are licensed under the [MIT license](LICENSE).
