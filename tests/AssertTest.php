@@ -423,7 +423,6 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         $foo = Assert::that('äöüÄÖÜß')->isString();
 
         $this->assertInstanceOf(Assert::class, $foo);
-
     }
 
     public function isStringFailsProvider()
