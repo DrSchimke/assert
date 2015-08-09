@@ -45,9 +45,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function equal($value1, $value2)
     {
-        Assert::that($value1)->equal($value2);
+        $foo = Assert::that($value1)->equal($value2);
 
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function equalFailsProvider()
@@ -137,9 +137,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function isInstance()
     {
-        Assert::that(new \DateTime())->isInstanceOf('\\DateTime');
+        $foo = Assert::that(new \DateTime())->isInstanceOf('\\DateTime');
 
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function isInstanceOfFailsProvider()
@@ -179,9 +179,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function isTraversable($value)
     {
-        Assert::that($value)->isTraversable();
+        $foo = Assert::that($value)->isTraversable();
 
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     /**
@@ -213,9 +213,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function allBetween($values, $min, $max)
     {
-        Assert::that($values)->all()->between($min, $max);
+        $foo = Assert::that($values)->all()->between($min, $max);
 
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function allBetweenFailsProvider()
@@ -247,10 +247,11 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function nullOrEquals()
     {
-        Assert::that(null)->nullOr()->equal(1);
-        Assert::that(1)->nullOr()->equal(1);
+        $foo = Assert::that(null)->nullOr()->equal(1);
+        $bar = Assert::that(1)->nullOr()->equal(1);
 
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Assert::class, $foo);
+        $this->assertInstanceOf(Assert::class, $bar);
     }
 
     /**
@@ -260,8 +261,6 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     public function nullOrEqualsFails()
     {
         Assert::that(2)->nullOr()->equal(1);
-
-        $this->assertTrue(true);
     }
 
     public function orderProvider()
@@ -296,7 +295,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function lt($a, $b)
     {
-        Assert::that($a)->lt($b);
+        $foo = Assert::that($a)->lt($b);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     /**
@@ -308,7 +309,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function gt($a, $b)
     {
-        Assert::that($b)->gt($a);
+        $foo = Assert::that($b)->gt($a);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     /**
@@ -320,7 +323,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function lte($a, $b)
     {
-        Assert::that($a)->lte($b);
+        $foo = Assert::that($a)->lte($b);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     /**
@@ -332,7 +337,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function gte($a, $b)
     {
-        Assert::that($b)->gte($a);
+        $foo = Assert::that($b)->gte($a);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     /**
@@ -394,7 +401,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     {
         $string = str_repeat('a', 200);
 
-        Assert::that($string)->hasMinLength(10);
+        Assert::that($string)->hasMinLength(1)->hasMinLength(10)->hasMinLength(200);
     }
 
     /**
@@ -413,7 +420,10 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function isString()
     {
-        Assert::that('äöüÄÖÜß')->isString();
+        $foo = Assert::that('äöüÄÖÜß')->isString();
+
+        $this->assertInstanceOf(Assert::class, $foo);
+
     }
 
     public function isStringFailsProvider()
@@ -457,7 +467,9 @@ class AssertTest extends \PHPUnit_Framework_TestCase
      */
     public function strictEquals($a, $b)
     {
-        Assert::that($a)->strictEqual($b);
+        $foo = Assert::that($a)->strictEqual($b);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function strictEqualsFailsProvider()
