@@ -37,7 +37,7 @@ foobar($b); // fine, too
 foobar($c); // Invalid argument supplied for foreach()
 ```
 
-Ignoring this and relying on @param-Annotations (```@param int[]``` or ```@param array|\Traversable```) is quite bad.
+Ignoring this and relying on @param-Annotations (`@param int[]` or `@param array|\Traversable`) is quite bad.
 
 Having an explicit guard is verbose and needs a separate unit test to achieve code coverage:
 
@@ -92,9 +92,7 @@ Assert::that($dates)->all()->isInstanceOf('\DateTime')->greaterThan(new \DateTim
 
 // be it null, or a collection ...
 Assert::that($dates)->nullOr()->isInstanceOf('\DateTime');
-
 ```
-
 
 ## Differences
 

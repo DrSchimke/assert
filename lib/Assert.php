@@ -43,6 +43,9 @@ class Assert
         return new self($value);
     }
 
+    /**
+     * @return Assert
+     */
     public function all()
     {
         $this->isTraversable();
@@ -52,6 +55,9 @@ class Assert
         return $this;
     }
 
+    /**
+     * @return Assert
+     */
     public function nullOr()
     {
         if ($this->value === null) {
