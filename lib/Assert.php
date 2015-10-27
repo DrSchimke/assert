@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the sci/assert package.
  *
@@ -13,6 +12,10 @@ namespace Sci\Assert;
 
 class Assert
 {
+    use BaseAssertionTrait;
+    use ComparisonAsserionTrait;
+    use StringAssertionTrait;
+
     /** @var mixed */
     private $value;
 
@@ -63,154 +66,6 @@ class Assert
         if ($this->value === null) {
             $this->alwaysValid = true;
         }
-
-        return $this;
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return Assert
-     */
-    public function isInstanceOf($className)
-    {
-        $this->doCheck(function ($value) use ($className) {
-            if (!$value instanceof $className) {
-                $this->throwException('Failed assertion that %s is an instance of %s', $value, $className);
-            }
-        });
-
-        return $this;
-    }
-
-    public function isString()
-    {
-        $this->doCheck(function ($value) {
-            if (!is_string($value)) {
-                $this->throwException('Failed assertion that %s is a string', $value);
-            }
-        });
-
-        return $this;
-    }
-
-    public function isTraversable()
-    {
-        $this->doCheck(function ($value) {
-            if (!is_array($value) && !$value instanceof \Traversable) {
-                $this->throwException('Failed assertion that %s is traversable', $value);
-            }
-        });
-
-        return $this;
-    }
-
-    public function equal($other)
-    {
-        $this->doCheck(function ($value) use ($other) {
-            if ($value != $other) {
-                $this->throwException('Failed assertion that %s is same as %s', $value, $other);
-            }
-        });
-
-        return $this;
-    }
-
-    public function strictEqual($other)
-    {
-        $this->doCheck(function ($value) use ($other) {
-            if ($value !== $other) {
-                $this->throwException('Failed assertion that %s is same as %s', $value, $other);
-            }
-        });
-
-        return $this;
-    }
-
-    public function lessThan($other)
-    {
-        $this->doCheck(function ($value) use ($other) {
-            if ($value >= $other) {
-                $this->throwException('Failed assertion that %s is less than %s', $value, $other);
-            }
-        });
-
-        return $this;
-    }
-
-    public function greaterThan($other)
-    {
-        $this->doCheck(function ($value) use ($other) {
-            if ($value <= $other) {
-                $this->throwException('Failed assertion that %s is greater than %s', $value, $other);
-            }
-        });
-
-        return $this;
-    }
-
-    public function lessThanOrEqual($other)
-    {
-        $this->doCheck(function ($value) use ($other) {
-            if ($value > $other) {
-                $this->throwException('Failed assertion that %s is less than %s', $value, $other);
-            }
-        });
-
-        return $this;
-    }
-
-    public function greaterThanOrEqual($other)
-    {
-        $this->doCheck(function ($value) use ($other) {
-            if ($value < $other) {
-                $this->throwException('Failed assertion that %s is greater than %s', $value, $other);
-            }
-        });
-
-        return $this;
-    }
-
-    public function lt($other)
-    {
-        return $this->lessThan($other);
-    }
-
-    public function lte($other)
-    {
-        return $this->lessThanOrEqual($other);
-    }
-
-    public function gt($other)
-    {
-        return $this->greaterThan($other);
-    }
-
-    public function gte($other)
-    {
-        return $this->greaterThanOrEqual($other);
-    }
-
-    public function between($min, $max)
-    {
-        $this->doCheck(function ($value) use ($min, $max) {
-            if ($value < $min || $value > $max) {
-                $this->throwException('Failed assertion that %s is between %s and %s', $value, $min, $max);
-            }
-        });
-
-        return $this;
-    }
-
-    public function hasMinLength($minLength)
-    {
-        $this->isString();
-
-        $this->doCheck(function ($value) use ($minLength) {
-            if (mb_strlen($value) < $minLength) {
-                $this->throwException('Failed assertion that %s has at least %s characters', $value, $minLength);
-            }
-        });
 
         return $this;
     }
