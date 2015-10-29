@@ -46,7 +46,7 @@ trait BaseAssertionTrait
     {
         $this->doCheck(function ($value) {
             $this->throwExceptionIfFalse(
-                is_integer($value),
+                is_int($value),
                 'Failed assertion that %s is integer', $value
             );
         });
