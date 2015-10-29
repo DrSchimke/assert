@@ -105,10 +105,7 @@ trait BaseAssertionTrait
     public function isTrue()
     {
         $this->doCheck(function ($value) {
-            $this->throwExceptionIfFalse(
-                true === $value,
-                'Failed assertion that %s is true', $value
-            );
+            $this->throwExceptionIfFalse(true === $value, 'Failed assertion that %s is true', $value    );
         });
 
         return $this;
