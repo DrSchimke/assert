@@ -20,7 +20,7 @@ trait ComparisonAsserionTrait
      */
     public function equal($other)
     {
-        $this->doCheck(function ($value) use ($other) {
+        $this->doCheck(function($value) use ($other) {
             $this->throwConditionalException(
                 $value == $other,
                 'Failed assertion that %s is same as %s', $value, $other
@@ -37,7 +37,7 @@ trait ComparisonAsserionTrait
      */
     public function strictEqual($other)
     {
-        $this->doCheck(function ($value) use ($other) {
+        $this->doCheck(function($value) use ($other) {
             $this->throwConditionalException(
                 $value === $other,
                 'Failed assertion that %s is same as %s', $value, $other
@@ -54,7 +54,7 @@ trait ComparisonAsserionTrait
      */
     public function lessThan($other)
     {
-        $this->doCheck(function ($value) use ($other) {
+        $this->doCheck(function($value) use ($other) {
             $this->throwConditionalException(
                 $value < $other,
                 'Failed assertion that %s is less than %s', $value, $other
@@ -71,7 +71,7 @@ trait ComparisonAsserionTrait
      */
     public function greaterThan($other)
     {
-        $this->doCheck(function ($value) use ($other) {
+        $this->doCheck(function($value) use ($other) {
             $this->throwConditionalException(
                 $value > $other,
                 'Failed assertion that %s is greater than %s', $value, $other
@@ -88,7 +88,7 @@ trait ComparisonAsserionTrait
      */
     public function lessThanOrEqual($other)
     {
-        $this->doCheck(function ($value) use ($other) {
+        $this->doCheck(function($value) use ($other) {
             $this->throwConditionalException(
                 $value <= $other,
                 'Failed assertion that %s is less than %s', $value, $other
@@ -105,7 +105,7 @@ trait ComparisonAsserionTrait
      */
     public function greaterThanOrEqual($other)
     {
-        $this->doCheck(function ($value) use ($other) {
+        $this->doCheck(function($value) use ($other) {
             $this->throwConditionalException(
                 $value >= $other,
                 'Failed assertion that %s is greater than %s', $value, $other
@@ -163,7 +163,7 @@ trait ComparisonAsserionTrait
      */
     public function between($min, $max)
     {
-        $this->doCheck(function ($value) use ($min, $max) {
+        $this->doCheck(function($value) use ($min, $max) {
             $this->throwConditionalException(
                 $min <= $value && $value <= $max,
                 'Failed assertion that %s is between %s and %s', $value, $min, $max

@@ -15,7 +15,7 @@ trait StringAssertionTrait
 {
     public function isString()
     {
-        $this->doCheck(function ($value) {
+        $this->doCheck(function($value) {
             if (!is_string($value)) {
                 $this->throwException('Failed assertion that %s is a string', $value);
             }
@@ -28,7 +28,7 @@ trait StringAssertionTrait
     {
         $this->isString();
 
-        $this->doCheck(function ($value) use ($minLength) {
+        $this->doCheck(function($value) use ($minLength) {
             if (mb_strlen($value) < $minLength) {
                 $this->throwException('Failed assertion that %s has at least %s characters', $value, $minLength);
             }
