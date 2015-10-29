@@ -98,6 +98,30 @@ class Assert
     }
 
     /**
+     * Throws an InvalidArgumentException, if $condition doesn't hold.
+     *
+     * @param bool   $condition
+     * @param string $messageFormatString
+     * @param mixed  $...
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function throwConditionalException()
+    {
+        $args = func_get_args();
+
+        $condition = array_shift($args);
+
+        if (!$condition) {
+            $args = array_map([$this, 'stringify'], $args);
+
+            $message = call_user_func_array('sprintf', $args);
+
+            throw new InvalidArgumentException($message);
+        }
+    }
+
+    /**
      * @param mixed $value
      *
      * @return string
