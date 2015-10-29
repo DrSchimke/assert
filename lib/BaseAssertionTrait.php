@@ -21,9 +21,10 @@ trait BaseAssertionTrait
     public function isInstanceOf($className)
     {
         $this->doCheck(function ($value) use ($className) {
-            if (!$value instanceof $className) {
-                $this->throwException('Failed assertion that %s is an instance of %s', $value, $className);
-            }
+            $this->throwExceptionIfFalse(
+                $value instanceof $className,
+                'Failed assertion that %s is an instance of %s', $value, $className
+            );
         });
 
         return $this;
@@ -32,9 +33,10 @@ trait BaseAssertionTrait
     public function isTraversable()
     {
         $this->doCheck(function ($value) {
-            if (!is_array($value) && !$value instanceof \Traversable) {
-                $this->throwException('Failed assertion that %s is traversable', $value);
-            }
+            $this->throwExceptionIfFalse(
+                is_array($value) || $value instanceof \Traversable,
+                'Failed assertion that %s is traversable', $value
+            );
         });
 
         return $this;

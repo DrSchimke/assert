@@ -13,25 +13,35 @@ namespace Sci\Assert;
 
 trait StringAssertionTrait
 {
+    /**
+     * @return $this
+     */
     public function isString()
     {
         $this->doCheck(function ($value) {
-            if (!is_string($value)) {
-                $this->throwException('Failed assertion that %s is a string', $value);
-            }
+            $this->throwExceptionIfFalse(
+                is_string($value),
+                'Failed assertion that %s is a string', $value
+            );
         });
 
         return $this;
     }
 
+    /**
+     * @param int $minLength
+     *
+     * @return $this
+     */
     public function hasMinLength($minLength)
     {
         $this->isString();
 
         $this->doCheck(function ($value) use ($minLength) {
-            if (mb_strlen($value) < $minLength) {
-                $this->throwException('Failed assertion that %s has at least %s characters', $value, $minLength);
-            }
+            $this->throwExceptionIfFalse(
+                mb_strlen($value) >= $minLength,
+                'Failed assertion that %s has at least %s characters', $value, $minLength
+            );
         });
 
         return $this;

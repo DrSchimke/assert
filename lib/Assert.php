@@ -14,7 +14,7 @@ namespace Sci\Assert;
 class Assert
 {
     use BaseAssertionTrait;
-    use ComparisonAsserionTrait;
+    use ComparisonAssertionTrait;
     use StringAssertionTrait;
 
     /** @var mixed */
@@ -85,19 +85,6 @@ class Assert
     }
 
     /**
-     * @throws InvalidArgumentException
-     */
-    protected function throwException()
-    {
-        $args = func_get_args();
-        $args = array_map([$this, 'stringify'], $args);
-
-        $message = call_user_func_array('sprintf', $args);
-
-        throw new InvalidArgumentException($message);
-    }
-
-    /**
      * Throws an InvalidArgumentException, if $condition doesn't hold.
      *
      * @param bool   $condition
@@ -106,7 +93,7 @@ class Assert
      *
      * @throws InvalidArgumentException
      */
-    protected function throwConditionalException()
+    protected function throwExceptionIfFalse()
     {
         $args = func_get_args();
 
