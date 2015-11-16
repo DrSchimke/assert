@@ -167,8 +167,6 @@ Assert::that(1)->isInteger()->gte(-10)->lte(10);
 
 Although looking like an unimportant detail, the later solution is easier to extend by subclassing. For example the class `StringAssert` extends `Assert`, without changing it.
 
-[`Foo`](lib/NumberAssert.php)
-
 ## License
 
 All contents of this package are licensed under the [MIT license](LICENSE).

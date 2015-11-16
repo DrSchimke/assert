@@ -49,7 +49,9 @@ class StringAssertTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException('\InvalidArgumentException');
         }
 
-        Assert::that($ipAddress)->isIpAddress($flags);
+        $foo = Assert::that($ipAddress)->isIpAddress($flags);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function urlProvider()
@@ -81,7 +83,9 @@ class StringAssertTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException('\InvalidArgumentException');
         }
 
-        Assert::that($url)->isUrl($flags);
+        $foo = Assert::that($url)->isUrl($flags);
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function emailAddressProvider()
@@ -116,7 +120,9 @@ class StringAssertTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException('\InvalidArgumentException');
         }
 
-        Assert::that($emailAddress)->isEmail();
+        $foo = Assert::that($emailAddress)->isEmail();
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 
     public function macAddressProvider()
@@ -144,6 +150,8 @@ class StringAssertTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException('\InvalidArgumentException');
         }
 
-        Assert::that($macAddress)->isMac();
+        $foo = Assert::that($macAddress)->isMac();
+
+        $this->assertInstanceOf(Assert::class, $foo);
     }
 }

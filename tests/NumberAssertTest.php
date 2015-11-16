@@ -38,7 +38,9 @@ class NumberAssertTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException(\InvalidArgumentException::class);
         }
 
-        NumberAssert::that($value)->equal($other, $delta);
+        $foo = NumberAssert::that($value)->equal($other, $delta);
+
+        $this->assertInstanceOf(NumberAssert::class, $foo);
     }
 
     public function primeProvider()
@@ -70,6 +72,8 @@ class NumberAssertTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException(\InvalidArgumentException::class);
         }
 
-        NumberAssert::that($value)->prime();
+        $foo = NumberAssert::that($value)->prime();
+
+        $this->assertInstanceOf(NumberAssert::class, $foo);
     }
 }
