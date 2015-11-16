@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of assert.
+ * This file is part of sci/assert.
  *
  * (c) Sascha Schimke <sascha@schimke.me>
  *
