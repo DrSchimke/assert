@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the sci/assert package.
+ * This file is part of sci/assert.
  *
  * (c) Sascha Schimke <sascha@schimke.me>
  *
@@ -11,58 +11,25 @@
 
 namespace Sci\Tests\Assert;
 
-use Sci\Assert\Assert;
+use Sci\Assert\StringAssert as Assert;
 
 class StringAssertTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
-    public function isString()
-    {
-        $foo = Assert::that('äöüÄÖÜß')->isString();
-
-        $this->assertInstanceOf(Assert::class, $foo);
-    }
-
-    public function isStringFailsProvider()
+    public function isIpv4Provider()
     {
         return [
-            [null],
-            [1],
-            [new \stdClass()],
-            [STDIN],
+            ['8.8.8.8'],
+            ['192.168.1.2'],
+            ['255.1.1.1'],
         ];
     }
 
     /**
      * @test
-     * @dataProvider isStringFailsProvider
-     * @expectedException \InvalidArgumentException
+     * @dataProvider isIpv4Provider
      */
-    public function isStringFails($noString)
+    public function isIpAddress($ip)
     {
-        Assert::that($noString)->isString();
-    }
-
-    /**
-     * @test
-     */
-    public function minLength()
-    {
-        $string = str_repeat('a', 200);
-
-        Assert::that($string)->hasMinLength(1)->hasMinLength(10)->hasMinLength(200);
-    }
-
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     */
-    public function minLengthFails()
-    {
-        $string = str_repeat('a', 200);
-
-        Assert::that($string)->hasMinLength(201);
+        Assert::that($ip)->isIpAddress();
     }
 }

@@ -40,11 +40,11 @@ class Assert
     /**
      * @param mixed $value
      *
-     * @return Assert
+     * @return static
      */
     final public static function that($value)
     {
-        return new self($value);
+        return new static($value);
     }
 
     /**
