@@ -22,7 +22,7 @@ trait ComparisonAssertionTrait
         $this->doCheck(function ($value) use ($other) {
             $this->throwExceptionIfFalse(
                 $value == $other,
-                'Failed assertion that %s is same as %s', $value, $other
+                'Value "%s" is not equal to "%s"', $value, $other
             );
         });
 
@@ -39,7 +39,7 @@ trait ComparisonAssertionTrait
         $this->doCheck(function ($value) use ($other) {
             $this->throwExceptionIfFalse(
                 $value === $other,
-                'Failed assertion that %s is same as %s', $value, $other
+                'Value "%s" is not the same as "%s"', $value, $other
             );
         });
 

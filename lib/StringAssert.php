@@ -17,7 +17,7 @@ class StringAssert extends Assert
         return $this->doCheck(function ($value) use ($flags) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_IP, $flags),
-                'Failed assertion that %s is a valid IP address', $value
+                '"%s" is not a valid IP address.', $value
             );
         });
     }
@@ -27,7 +27,7 @@ class StringAssert extends Assert
         return $this->doCheck(function ($value) use ($flags) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_URL, $flags),
-                'Failed assertion that %s is a valid URL', $value
+                '"%s" is not a valid URL.', $value
             );
         });
     }
@@ -37,7 +37,7 @@ class StringAssert extends Assert
         return $this->doCheck(function ($value) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_EMAIL),
-                'Failed assertion that %s is a valid email address', $value
+                '"%s" is not a valid email address.', $value
             );
         });
     }
@@ -47,7 +47,7 @@ class StringAssert extends Assert
         return $this->doCheck(function ($value) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_MAC),
-                'Failed assertion that %s is a valid MAC address', $value
+                '"%s" is not a valid MAC address.', $value
             );
         });
     }
