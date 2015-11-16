@@ -64,7 +64,7 @@ class NumberAssert extends Assert
             return true;
         }
 
-        for ($i = 2; $i*$i <= $value; ++$i) {
+        for ($i = 2; $i * $i <= $value; ++$i) {
             if (0 === $value % $i) {
                 return false;
             }
