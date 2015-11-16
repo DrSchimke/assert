@@ -94,10 +94,64 @@ Assert::that($dates)->all()->isInstanceOf('\DateTime')->greaterThan(new \DateTim
 Assert::that($dates)->nullOr()->isInstanceOf('\DateTime');
 ```
 
+## Complete assertion list
+
+```php
+use Sci\Assert\Assert;
+
+// base assertions
+Assert::that($value)->isString();
+Assert::that($value)->isInteger();
+Assert::that($value)->isNumeric();
+Assert::that($value)->isScalar();
+Assert::that($value)->isResource();
+Assert::that($value)->isTrue();
+Assert::that($value)->isTraversable();
+Assert::that($value)->isInstanceOf('\DateTime');
+
+// comparison assertions
+Assert::that($value)->equal($valueRepeated);
+Assert::that($value)->strictEqual($valueRepeated);
+
+Assert::that($value)->lessThan(10);        // Assert::that($value)->lt(10);
+Assert::that($value)->lessThanOrEqual(10); // Assert::that($value)->lte(10);
+
+Assert::that($value)->greaterThan(10);        // Assert::that($value)->gt(10);
+Assert::that($value)->greaterThanOrEqual(10); // Assert::that($value)->gte(10);
+
+Assert::that($value)->between(10, 20); // same as Assert::that($value)->gte(10)->lte(20);
+
+// string assertions
+Assert::that($value)->hasMinLength(8);
+
+// meta assertions
+Assert::that($value)->all()->isString();
+Assert::that($value)->nullOr()->isString();
+```
+
+```php
+use Sci\Assert\StringAssert;
+
+StringAssert::that($value)->isIpAddress();
+StringAssert::that($value)->isIpAddress(FILTER_FLAG_IPV4);
+
+StringAssert::that($value)->isUrl(FILTER_FLAG_QUERY_REQUIRED | FILTER_FLAG_PATH_REQUIRED);
+StringAssert::that($value)->isEmail();
+StringAssert::that($value)->isMac();
+```
+
+```php
+use Sci\Assert\FileSystemAssert;
+
+FileSystemAssert::that($filename)->exists();
+FileSystemAssert::that($filename)->isFile();
+FileSystemAssert::that($filename)->isDir();
+FileSystemAssert::that($filename)->isLink();
+```
+
 ## Differences
 
-While beberlei's fluent API is function-based (```\Assert\that()```), the API of sci/assert uses a static method (```Assert::that()```). Although looking like an unimportant detail, the later solution is easier to extend by subclassing.
-
+While beberlei's fluent API is function-based (```\Assert\that()```), the API of sci/assert uses a static method (```Assert::that()```). 
 ```php
 \Assert\that(1)->integer()->min(-10)->max(10);
 ```
@@ -108,6 +162,8 @@ use Sci\Assert\Assert;
 Assert::that(1)->isInteger()->greaterThanOrEual(-10)->lessThanOrEqual(10);
 Assert::that(1)->isInteger()->gte(-10)->lte(10);
 ```
+
+Although looking like an unimportant detail, the later solution is easier to extend by subclassing. For example the class `StringAssert` extends `Assert`, without changing it.
 
 ## License
 
