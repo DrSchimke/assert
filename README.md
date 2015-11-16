@@ -120,9 +120,11 @@ Assert::that($value)->greaterThan(10);        // Assert::that($value)->gt(10);
 Assert::that($value)->greaterThanOrEqual(10); // Assert::that($value)->gte(10);
 
 Assert::that($value)->between(10, 20); // same as Assert::that($value)->gte(10)->lte(20);
+Assert::that($value)->between('aaaa', 'bbbbb');
 
 // string assertions
 Assert::that($value)->hasMinLength(8);
+Assert::that($value)->matches('/^[A-Z][a-z]+$/');
 
 // meta assertions
 Assert::that($value)->all()->isString();

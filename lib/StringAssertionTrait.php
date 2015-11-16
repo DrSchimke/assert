@@ -45,4 +45,23 @@ trait StringAssertionTrait
 
         return $this;
     }
+
+    /**
+     * @param string $pattern
+     *
+     * @return $this
+     */
+    public function matches($pattern)
+    {
+        $this->isString();
+
+        $this->doCheck(function ($value) use ($pattern) {
+            $this->throwExceptionIfFalse(
+                preg_match($pattern, $value),
+                'String "%s" does not match "%s"', $value, $pattern
+            );
+        });
+
+        return $this;
+    }
 }
