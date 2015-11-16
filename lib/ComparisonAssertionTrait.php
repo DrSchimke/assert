@@ -164,11 +164,23 @@ trait ComparisonAssertionTrait
     {
         $this->doCheck(function ($value) use ($min, $max) {
             $this->throwExceptionIfFalse(
-                $min <= $value && $value <= $max,
+                $this->isBetween($value, $min, $max),
                 'Failed assertion that %s is between %s and %s', $value, $min, $max
             );
         });
 
         return $this;
+    }
+
+    /**
+     * @param float $value
+     * @param float $min
+     * @param float $max
+     *
+     * @return bool
+     */
+    protected function isBetween($value, $min, $max)
+    {
+        return $min <= $value && $value <= $max;
     }
 }

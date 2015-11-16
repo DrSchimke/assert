@@ -12,8 +12,15 @@ namespace Sci\Assert;
 
 class StringAssert extends Assert
 {
+    /**
+     * @param int $flags
+     *
+     * @return $this
+     */
     public function isIpAddress($flags = 0)
     {
+        $this->isString();
+
         return $this->doCheck(function ($value) use ($flags) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_IP, $flags),
@@ -22,8 +29,15 @@ class StringAssert extends Assert
         });
     }
 
+    /**
+     * @param int $flags
+     *
+     * @return $this
+     */
     public function isUrl($flags = 0)
     {
+        $this->isString();
+
         return $this->doCheck(function ($value) use ($flags) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_URL, $flags),
@@ -34,6 +48,8 @@ class StringAssert extends Assert
 
     public function isEmail()
     {
+        $this->isString();
+
         return $this->doCheck(function ($value) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_EMAIL),
@@ -44,6 +60,8 @@ class StringAssert extends Assert
 
     public function isMac()
     {
+        $this->isString();
+
         return $this->doCheck(function ($value) {
             $this->throwExceptionIfFalse(
                 filter_var($value, FILTER_VALIDATE_MAC),
