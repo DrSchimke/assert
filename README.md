@@ -94,6 +94,26 @@ Assert::that($dates)->all()->isInstanceOf('\DateTime')->greaterThan(new \DateTim
 Assert::that($dates)->nullOr()->isInstanceOf('\DateTime');
 ```
 
+## Extending the library
+
+The Assert library can be extended by subclassing. An example can be found here: [`NumberAssert`](lib/NumberAssert.php), which adds two changes to the [`Assert`](lib/Assert.php) base-class. First the `Assert::equal()` base method is extendes by a delta/tolerance argument, when used with numeric values: [`NumberAssert::equal()`](lib/NumberAssert.php#L21). Second, a prime number assertion is added: [`NumberAssert::prime()`](lib/NumberAssert.php#L40).
+
+```php
+use Sci\Assert\NumberAssert;
+
+NumberAssert::that(3.1415)->equal(M_PI, .001);
+NumberAssert::that(997)->prime();
+```
+
+or, for a better readability:
+
+```php
+use Sci\Assert\NumberAssert as Assert;
+
+Assert::that(3.1415)->equal(M_PI, .001);
+Assert::that(997)->prime();
+```
+
 ## Complete assertion list
 
 ```php
