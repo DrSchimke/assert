@@ -185,7 +185,7 @@ Assert::that(1)->isInteger()->greaterThanOrEqual(-10)->lessThanOrEqual(10);
 Assert::that(1)->isInteger()->gte(-10)->lte(10);
 ```
 
-Although looking like an unimportant detail, the later solution is easier to extend by subclassing. See [here](#Extending the library).
+Although looking like an unimportant detail, the later solution is easier to extend by subclassing. See [here](#extending-the-library).
 
 ## License
 
