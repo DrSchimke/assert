@@ -181,7 +181,7 @@ While beberlei's fluent API is function-based (```\Assert\that()```), the API of
 ```php
 use Sci\Assert\Assert;
 
-Assert::that(1)->isInteger()->greaterThanOrEual(-10)->lessThanOrEqual(10);
+Assert::that(1)->isInteger()->greaterThanOrEqual(-10)->lessThanOrEqual(10);
 Assert::that(1)->isInteger()->gte(-10)->lte(10);
 ```
 
