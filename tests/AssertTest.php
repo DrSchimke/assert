@@ -18,7 +18,7 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     {
         $foo = Assert::that([1, 2, 3, 4, 5, 6])->all()->lessThan(10);
 
-        $this->assertInstanceOf(Assert::class, $foo);
+        $this->assertInstanceOf(Assert::CLASS_NAME, $foo);
     }
 
     /**
@@ -29,8 +29,8 @@ class AssertTest extends \PHPUnit_Framework_TestCase
         $foo = Assert::that(null)->nullOr()->equal(1);
         $bar = Assert::that(1)->nullOr()->equal(1);
 
-        $this->assertInstanceOf(Assert::class, $foo);
-        $this->assertInstanceOf(Assert::class, $bar);
+        $this->assertInstanceOf(Assert::CLASS_NAME, $foo);
+        $this->assertInstanceOf(Assert::CLASS_NAME, $bar);
     }
 
     /**

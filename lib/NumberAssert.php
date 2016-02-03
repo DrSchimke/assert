@@ -12,6 +12,8 @@ namespace Sci\Assert;
 
 class NumberAssert extends Assert
 {
+    const CLASS_NAME = __CLASS__;
+
     /**
      * @param float $other
      * @param float $delta

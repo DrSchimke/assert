@@ -12,6 +12,8 @@ namespace Sci\Assert;
 
 class Assert
 {
+    const CLASS_NAME = __CLASS__;
+
     use BaseAssertionTrait;
     use ComparisonAssertionTrait;
     use StringAssertionTrait;

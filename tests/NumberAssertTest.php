@@ -35,12 +35,12 @@ class NumberAssertTest extends \PHPUnit_Framework_TestCase
     public function equal($value, $other, $delta, $ok)
     {
         if (!$ok) {
-            $this->setExpectedException(\InvalidArgumentException::class);
+            $this->setExpectedException('InvalidArgumentException');
         }
 
         $foo = NumberAssert::that($value)->equal($other, $delta);
 
-        $this->assertInstanceOf(NumberAssert::class, $foo);
+        $this->assertInstanceOf(NumberAssert::CLASS_NAME, $foo);
     }
 
     public function primeProvider()
@@ -69,11 +69,11 @@ class NumberAssertTest extends \PHPUnit_Framework_TestCase
     public function prime($value, $ok)
     {
         if (!$ok) {
-            $this->setExpectedException(\InvalidArgumentException::class);
+            $this->setExpectedException('InvalidArgumentException');
         }
 
         $foo = NumberAssert::that($value)->prime();
 
-        $this->assertInstanceOf(NumberAssert::class, $foo);
+        $this->assertInstanceOf(NumberAssert::CLASS_NAME, $foo);
     }
 }

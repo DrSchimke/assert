@@ -21,7 +21,7 @@ class BaseAssertTest extends \PHPUnit_Framework_TestCase
     {
         $foo = Assert::that(new \DateTime())->isInstanceOf('\\DateTime');
 
-        $this->assertInstanceOf(Assert::class, $foo);
+        $this->assertInstanceOf(Assert::CLASS_NAME, $foo);
     }
 
     public function isInstanceOfFailsProvider()
@@ -63,7 +63,7 @@ class BaseAssertTest extends \PHPUnit_Framework_TestCase
     {
         $foo = Assert::that($value)->isTraversable();
 
-        $this->assertInstanceOf(Assert::class, $foo);
+        $this->assertInstanceOf(Assert::CLASS_NAME, $foo);
     }
 
     /**

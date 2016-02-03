@@ -21,7 +21,7 @@ class StringAssertionTraitTest extends \PHPUnit_Framework_TestCase
     {
         $foo = Assert::that('äöüÄÖÜß')->isString();
 
-        $this->assertInstanceOf(Assert::class, $foo);
+        $this->assertInstanceOf(Assert::CLASS_NAME, $foo);
     }
 
     public function isStringFailsProvider()

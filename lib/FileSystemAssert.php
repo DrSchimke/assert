@@ -12,6 +12,8 @@ namespace Sci\Assert;
 
 class FileSystemAssert extends Assert
 {
+    const CLASS_NAME = __CLASS__;
+
     public function exists()
     {
         $this->doCheck(function ($value) {

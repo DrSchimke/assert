@@ -12,6 +12,8 @@ namespace Sci\Assert;
 
 class StringAssert extends Assert
 {
+    const CLASS_NAME = __CLASS__;
+
     /**
      * @param int $flags
      *
