@@ -154,4 +154,18 @@ class StringAssertTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Assert::class, $foo);
     }
+
+    /**
+     * @test
+     */
+    public function equal()
+    {
+        Assert::that('foo')->equal('foo');
+        Assert::that('foo')->equal('foo', true);
+        Assert::that('foo')->equal(' foo ', true);
+        Assert::that('foo ')->equal(' foo ', true);
+        Assert::that(' foo')->equal(' foo ', true);
+
+        $this->assertTrue(true);
+    }
 }

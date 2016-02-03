@@ -69,4 +69,26 @@ class StringAssert extends Assert
             );
         });
     }
+
+    /**
+     * @param string $other
+     * @param bool   $trim
+     *
+     * @return $this
+     */
+    public function equal($other, $trim = false)
+    {
+        $this->isString();
+
+        if (false === $trim) {
+            return parent::equal($other);
+        }
+
+        return $this->doCheck(function ($value) use ($other) {
+            $this->throwExceptionIfFalse(
+                trim($value) === trim($other),
+                'Value %s is not equal to %s', $value, $other
+            );
+        });
+    }
 }
