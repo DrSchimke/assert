@@ -1,6 +1,6 @@
 {
     "name": "sci/assert",
-    "description": "Extensible lightweight assertion library.",
+    "description": "Extensible lightweight assertion library",
     "type": "library",
     "license": "MIT",
     "require": {
