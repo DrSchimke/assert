@@ -118,9 +118,7 @@ class Assert
     {
         if (is_bool($value)) {
             return $value ? '<TRUE>' : '<FALSE>';
-        }
-
-        if (is_scalar($value)) {
+        } elseif (is_scalar($value)) {
             $val = (string) $value;
 
             if (strlen($val) > 100) {
@@ -128,24 +126,16 @@ class Assert
             }
 
             return $val;
-        }
-
-        if (is_array($value)) {
+        } elseif (is_array($value)) {
             return '<ARRAY>';
-        }
-
-        if (is_object($value)) {
+        } elseif (is_object($value)) {
             return sprintf('%s [%s]', get_class($value), spl_object_hash($value));
-        }
-
-        if (is_resource($value)) {
+        } elseif (is_resource($value)) {
             return '<RESOURCE>';
-        }
-
-        if (is_null($value)) {
+        } elseif (is_null($value)) {
             return '<NULL>';
+        } else {
+            return 'unknown';
         }
-
-        return 'unknown';
     }
 }
